@@ -1,0 +1,16 @@
+[Unit]
+Description=Remote Script Executor
+ConditionPathExists=/home/ubuntu/remoteScriptExecutor
+After=network.target
+
+[Service]
+User=ubuntu
+
+Restart=on-failure
+RestartSec=10
+
+WorkingDirectory=/home/ubuntu/remoteScriptExecutor
+ExecStart=/home/ubuntu/remoteScriptExecutor/main
+
+[Install]
+WantedBy=multi-user.target
