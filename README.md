@@ -1,5 +1,5 @@
 # Remote Script Executor
-A Service which works 🤝 with (GitHub Action)\
+A Service which works 🤝 with [GitHubActionRemoteScriptExecutor](https://github.com/Binozo/GitHubActionRemoteScriptExecutor) \
 Developed to automatically run scripts on target machines through GitHub Actions.
 
 ## Setup
@@ -16,3 +16,4 @@ Developed to automatically run scripts on target machines through GitHub Actions
 
 ##Usage
 
+Take a look at [this](https://github.com/Binozo/GitHubActionRemoteScriptExecutor)
