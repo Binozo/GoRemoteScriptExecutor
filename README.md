@@ -14,6 +14,6 @@ Developed to automatically run scripts on target machines through GitHub Actions
 
 (If you want to change the password you have to restart the service in order to load the new password)
 
-##Usage
+## Usage
 
 Take a look at [this](https://github.com/Binozo/GitHubActionRemoteScriptExecutor)
