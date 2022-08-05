@@ -1,3 +1,11 @@
+# Current project status: development mode
+
+Packages:
+- https://github.com/go-co-op/gocron
+- https://github.com/google/go-github
+- https://docs.github.com/en/rest/releases/releases
+- https://github.com/gorilla/mux
+
 # Remote Script Executor
 A Service which works 🤝 with [GitHubActionRemoteScriptExecutor](https://github.com/Binozo/GitHubActionRemoteScriptExecutor) \
 Developed to automatically run scripts on target machines through GitHub Actions.
