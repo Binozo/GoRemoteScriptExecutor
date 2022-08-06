@@ -2,6 +2,7 @@ package server
 
 import (
 	"RemoteScriptExecutor/pkg/constants"
+	"RemoteScriptExecutor/pkg/credentialsmanager"
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"log"
@@ -27,10 +28,16 @@ func Run() {
 	Run()
 }
 
-func checkCredentials(w http.ResponseWriter, r *http.Request) {
+func checkCredentials(w http.ResponseWriter, r *http.Request) bool {
 	clientAuthKey := r.Header.Get("Authorization")
-
-	w.WriteHeader(http.StatusOK)
+	hashedClientAuthKey := credentialsmanager.HashPassword(clientAuthKey)
+	// Now the AuthKey needs to be hashed and compared to the one stored in the environment variable
+	if hashedClientAuthKey != credentialsmanager.GetPassword() {
+		w.WriteHeader(http.StatusUnauthorized)
+		w.Write([]byte("Unauthorized"))
+		return false
+	}
+	return true
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
@@ -43,5 +50,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func scriptsHandler(w http.ResponseWriter, r *http.Request) {
-	checkCredentials(w, r)
+	if res := checkCredentials(w, r); res == false {
+		return
+	}
 }
