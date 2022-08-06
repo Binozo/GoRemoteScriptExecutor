@@ -30,7 +30,8 @@ func CheckIfPasswordIsSet() {
 func GetPassword() string {
 	envPassword := os.Getenv(constants.EnvPassword)
 	if envPassword == "" {
-
+		log.Fatalln("Please set a good password. https://github.com/Binozo/GoRemoteScriptExecutor#Setup")
+		os.Exit(1)
 	}
 	return envPassword
 }
