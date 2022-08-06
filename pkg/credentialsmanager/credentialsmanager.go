@@ -8,11 +8,15 @@ import (
 	"os"
 )
 
-func GeneratePassword(password string) error {
+func HashPassword(password string) string {
 	h := sha256.New()
 	h.Write([]byte(password))
 	hashedPassword := fmt.Sprintf("%x", h.Sum(nil))
-	return os.Setenv(constants.EnvPassword, hashedPassword)
+	return hashedPassword
+}
+
+func GeneratePassword(password string) error {
+	return os.Setenv(constants.EnvPassword, HashPassword(password))
 }
 
 func CheckIfPasswordIsSet() {
