@@ -27,7 +27,8 @@ jobs:
           cd cmd
           env GOOS=linux GOARCH=arm64 go build -o ../goremotescriptexecutor_arm64
 
-      - name: version
+      - name: Version
+        id: version
         run: |
           cd cmd
           go run main.go -v
