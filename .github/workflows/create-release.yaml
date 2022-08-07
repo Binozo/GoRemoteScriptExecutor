@@ -15,17 +15,17 @@ jobs:
       - name: Build Linux amd64
         run: |
           cd cmd
-          env GOOS=linux GOARCH=amd64 go build -o goremotescriptexecutor_amd64
+          env GOOS=linux GOARCH=amd64 go build -o ../goremotescriptexecutor_amd64
 
       - name: Build Raspi Linux arm
         run: |
           cd cmd
-          env GOOS=linux GOARCH=arm GOARM=5 go build -o goremotescriptexecutor_arm
+          env GOOS=linux GOARCH=arm GOARM=5 go build -o ../goremotescriptexecutor_arm
 
       - name: Build Linux arm64
         run: |
           cd cmd
-          env GOOS=linux GOARCH=arm64 go build -o goremotescriptexecutor_arm64
+          env GOOS=linux GOARCH=arm64 go build -o ../goremotescriptexecutor_arm64
           
       - name: Make release
         uses: actions/create-release@v1
