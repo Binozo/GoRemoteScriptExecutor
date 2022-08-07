@@ -22,3 +22,41 @@ Note: For help look at the [installation script](https://github.com/Binozo/GoRem
 
 ## GitHub Actions support
 Take a look at [GitHubActionRemoteScriptExecutor](https://github.com/Binozo/GitHubActionRemoteScriptExecutor).
+
+## HTTP Endpoints
+Note: you will need to pass the Authorization header with your password.
+```Authorization: <password>```
+### `/`
+Returns some basic info like application name and version.
+Example:
+```json
+{ 
+  "name" : "GoRemoteScriptExecutor",
+  "version" : "0.1"
+}
+```
+
+### `/scripts`
+Returns a list of all scripts found in the scripts directory.
+Example:
+```json
+{
+  "scripts" : [
+    "script1.sh",
+    "script2.sh"
+  ],
+  "status" : "ok"
+}
+```
+
+### `/runScript/<scriptname>`
+Executes the script with the given name.
+Possible GET parameters:
+- `blocking` (optional) - If set to `true` the script will be executed in blocking mode. Default is `false`.
+- `responseOutput` (optional) - If set to `true` the script output will be sent back to you. Default is `false`.
+Example:
+```json
+{
+  "status" : "ok"
+}
+```
