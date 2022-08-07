@@ -1,0 +1,13 @@
+name: Compilation check
+on: [push]
+jobs:
+  Check-if-compiles:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+      - name: Check if it compiles
+        run: |
+          cd cmd
+          go build -o main
