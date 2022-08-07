@@ -32,12 +32,12 @@ func CheckIfPasswordIsSet() {
 	}
 }
 
-func GetPassword() string {
+func GetPassword() []byte {
 	CheckIfPasswordIsSet()
 	dat, err := os.ReadFile(PasswordFileName)
 	if err != nil {
 		log.Fatalln("Couldn't read the password file:", err)
 		os.Exit(1)
 	}
-	return string(dat)
+	return dat
 }
