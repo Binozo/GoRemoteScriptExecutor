@@ -29,7 +29,7 @@ wget "$downloadUrl" -O "$path$filename"
 chmod +x "$path$filename"
 
 echo "A password is required. If you make a http request you will need to pass it as Authorization header."
-read -p -s "Please enter a password: " password
+read -s -p "Please enter a password: " password
 # Generating password
 cd $path
 $path$filename -set-password "$password"
