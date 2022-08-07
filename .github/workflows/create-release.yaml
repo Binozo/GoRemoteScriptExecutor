@@ -27,10 +27,11 @@ jobs:
           cd cmd
           env GOOS=linux GOARCH=arm64 go build -o ../goremotescriptexecutor_arm64
 
-      - name: version
+      - name: Version
         run: |
           cd cmd
           echo "::set-output name=version::$(go run main.go -v)"
+          echo ${{ steps.version.outputs.version }}
           
       - name: Make release
         uses: actions/create-release@v1
