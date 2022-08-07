@@ -1,6 +1,7 @@
 # GoRemoteScriptExecutor
 Securely execute scripts on remote Servers using simple HTTP GET requests.
 
+[![Compilation check](https://github.com/Binozo/GoRemoteScriptExecutor/actions/workflows/compile-check.yaml/badge.svg)](https://github.com/Binozo/GoRemoteScriptExecutor/actions/workflows/compile-check.yaml)
 ## Setup
 ### Automatic
 I made a setup script to install GoRemoteScriptExecutor on your Server. It automatically detects your cpu architecture and downloads the correct executable and manages everything for you.
