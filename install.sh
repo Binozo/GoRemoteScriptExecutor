@@ -13,6 +13,7 @@ case "$choice" in
 esac
 
 arch=$(dpkg --print-architecture)
+realuser="${SUDO_USER:-${USER}}"
 echo "Searching executable for architecture $arch..."
 
 releasesJson=$(curl -s https://api.github.com/repos/Binozo/GoRemoteScriptExecutor/releases/latest)
@@ -21,7 +22,10 @@ tagName=$(echo $releasesJson | grep -o -P '(?<="tag_name": ").*(?=", "target_com
 echo "Latest release is $tagName"
 
 downloadUrl="https://github.com/Binozo/GoRemoteScriptExecutor/releases/download/$tagName/goremotescriptexecutor_$arch"
-path="/usr/local/bin/goremotescriptexecutor/"
+path="/opt/goremotescriptexecutor/"
+cd $path && cd ..
+chown "$realuser" goremotescriptexecutor
+
 echo "Downloading $downloadUrl to $path..."
 filename="goremotescriptexecutor"
 mkdir -p $path
@@ -38,7 +42,6 @@ printf '\n'
 cd $path
 $path$filename -set-password "$password"
 
-realuser="${SUDO_USER:-${USER}}"
 
 echo "Installing systemd service..."
 echo "
@@ -62,5 +65,7 @@ WantedBy=multi-user.target
 systemctl daemon-reload
 systemctl enable goremotescriptexecutor.service
 systemctl start goremotescriptexecutor.service
+systemctl status goremotescriptexecutor
 
 echo "Done!"
+echo "You can check the current status with 'systemctl status goremotescriptexecutor'"
