@@ -30,7 +30,7 @@ func Run() {
 
 func checkCredentials(w http.ResponseWriter, r *http.Request) bool {
 	clientAuthKey := r.Header.Get("Authorization")
-	hashedClientAuthKey := credentialsmanager.HashPassword(clientAuthKey)
+	hashedClientAuthKey, _ := credentialsmanager.HashPassword(clientAuthKey)
 	// Now the AuthKey needs to be hashed and compared to the one stored in the environment variable
 	if hashedClientAuthKey != credentialsmanager.GetPassword() {
 		w.WriteHeader(http.StatusUnauthorized)
