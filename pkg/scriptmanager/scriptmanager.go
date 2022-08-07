@@ -1,10 +1,9 @@
 package scriptmanager
 
 import (
-	"io/fs"
+	"io/ioutil"
 	"log"
 	"os"
-	"path/filepath"
 )
 
 const (
@@ -25,12 +24,13 @@ func Setup() {
 }
 
 func GetScripts() ([]string, error) {
-	var files []string
-	err := filepath.Walk(ScriptsDirName, func(path string, info fs.FileInfo, err error) error {
-		if !info.IsDir() {
-			files = append(files, path)
-		}
-		return nil
-	})
-	return files, err
+	var fileNames []string
+	files, err := ioutil.ReadDir(ScriptsDirName)
+	if err != nil {
+		return nil, err
+	}
+	for _, f := range files {
+		fileNames = append(fileNames, f.Name())
+	}
+	return fileNames, nil
 }
