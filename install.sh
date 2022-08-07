@@ -68,4 +68,3 @@ systemctl start goremotescriptexecutor.service
 systemctl status goremotescriptexecutor
 
 echo "Done!"
-echo "You can check the current status with 'systemctl status goremotescriptexecutor'"
