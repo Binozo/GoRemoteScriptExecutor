@@ -1,9 +1,13 @@
 package scriptmanager
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
+	"os/exec"
+	"path"
+	"path/filepath"
 )
 
 const (
@@ -33,4 +37,17 @@ func GetScripts() ([]string, error) {
 		fileNames = append(fileNames, f.Name())
 	}
 	return fileNames, nil
+}
+
+func ExecuteScript(scriptName string) (string, error) {
+	scriptPath, err := filepath.Abs(path.Join(ScriptsDirName, scriptName))
+	if err != nil {
+		return "", err
+	}
+	fmt.Println("Executing script:", scriptPath)
+	out, err := exec.Command("/bin/sh", scriptPath).Output()
+	if err != nil {
+		return "", err
+	}
+	return string(out), nil
 }
