@@ -3,6 +3,7 @@ package server
 import (
 	"RemoteScriptExecutor/pkg/constants"
 	"RemoteScriptExecutor/pkg/credentialsmanager"
+	"RemoteScriptExecutor/pkg/scriptmanager"
 	"bytes"
 	"encoding/json"
 	"github.com/gorilla/mux"
@@ -54,4 +55,24 @@ func scriptsHandler(w http.ResponseWriter, r *http.Request) {
 	if res := checkCredentials(w, r); res == false {
 		return
 	}
+	scripts, err := scriptmanager.GetScripts()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json, _ := json.Marshal(map[string]string{
+			"status":  "error",
+			"message": err.Error(),
+		})
+		w.Write(json)
+	}
+	if len(scripts) == 0 {
+		// bugfix: if the slice is empty, json.Marshal returns "null" instead of "[]" => https://imantung.medium.com/golang-json-marshal-return-null-for-empty-slice-9aa816b7324b
+		scripts = make([]string, 0)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	json, _ := json.Marshal(map[string]interface{}{
+		"status":  "ok",
+		"scripts": scripts,
+	})
+	w.Write(json)
 }
