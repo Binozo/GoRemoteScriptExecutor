@@ -17,6 +17,9 @@ func HandleArgs() {
 	if os.Args[1] == constants.AliveArg {
 		fmt.Print(constants.AliveResponse)
 		os.Exit(0)
+	} else if os.Args[1] == constants.VersionArg {
+		fmt.Print(constants.Version)
+		os.Exit(0)
 	} else if len(os.Args) >= 3 && os.Args[1] == constants.SetupPasswordArg && os.Args[2] != "" {
 		log.Println("Setting password...")
 		if err := credentialsmanager.GeneratePassword(os.Args[2]); err != nil {

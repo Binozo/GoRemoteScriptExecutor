@@ -5,6 +5,7 @@ const (
 	Name             = "GoRemoteScriptExecutor"
 	Version          = "0.1"
 	AliveArg         = "-testrun"
+	VersionArg       = "-v"
 	SetupPasswordArg = "-set-password"
 	AliveResponse    = "Hello World!"
 	EnvPassword      = "GoRemoteScriptExecutorP"
