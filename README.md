@@ -1,27 +1,24 @@
-# Current project status: development mode
-
-Packages:
-- https://github.com/go-co-op/gocron
-- https://github.com/google/go-github
-- https://docs.github.com/en/rest/releases/releases
-- https://github.com/gorilla/mux
-
-# Remote Script Executor
-A Service which works 🤝 with [GitHubActionRemoteScriptExecutor](https://github.com/Binozo/GitHubActionRemoteScriptExecutor) \
-Developed to automatically run scripts on target machines through GitHub Actions.
+# GoRemoteScriptExecutor
+Securely execute scripts on remote Servers using simple HTTP GET requests.
 
 ## Setup
-1. Download the [main](https://github.com/Binozo/GoRemoteScriptExecutor/tree/master/main/main) executable and the systemd Service [file](https://github.com/Binozo/GoRemoteScriptExecutor/tree/master/remoteScriptExecutor.service)
-2. Move the systemd Service file to ``/etc/systemd/system/``
-3. Create a Folder named ``remoteScriptExecutor`` in the Home Directory (`/home/ubuntu/`)
-4. Copy the main file to ``/home/ubuntu/remoteScriptExecutor/``
-5. Create the ``creds.txt`` file in the same directory
-6. **Write a password into that file** (Leaving it empty removes the password checking)
-7. Create a shell script file in ``/home/ubuntu/remoteScriptExecutor/``
-8. Run ``sudo systemctl daemon-reload && sudo systemctl start remoteScriptExecutor``
+### Automatic
+I made a setup script to install GoRemoteScriptExecutor on your Server. It automatically detects your cpu architecture and downloads the correct executable and manages everything for you.
 
-(If you want to change the password you have to restart the service in order to load the new password)
+```bash
+wget https://raw.githubusercontent.com/Binozo/GoRemoteScriptExecutor/master/install.sh -O install.sh && chmod +x install.sh && sudo ./install.sh
+```
+### Manual
+You can also install GoRemoteScriptExecutor manually.
+1. Download the latest executable from the [Releases Page](https://github.com/Binozo/GoRemoteScriptExecutor/releases) and rename it to `goremotescriptexecutor`.
+2. Place the executable in the `/opt/goremotescriptexecutor/` directory.
+3. Make it executable. `chmod +x /opt/goremotescriptexecutor/goremotescriptexecutor`
+4. Add the `goremotescriptexecutor` directory to your user group. \
+    `cd /opt/ && chown -R $USER:$USER goremotescriptexecutor`
+5. Create a password: `/opt/goremotescriptexecutor/goremotescriptexecutor --set-password <password>`
+6. If everything is fine, create a systemd service for the executable.
 
-## Usage
+Note: For help look at the [installation script](https://github.com/Binozo/GoRemoteScriptExecutor/blob/master/install.sh).
 
-Take a look at [this](https://github.com/Binozo/GitHubActionRemoteScriptExecutor)
+## GitHub Actions support
+Take a look at [GitHubActionRemoteScriptExecutor](https://github.com/Binozo/GitHubActionRemoteScriptExecutor).
