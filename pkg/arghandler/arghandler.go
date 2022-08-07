@@ -10,7 +10,7 @@ import (
 
 func HandleArgs() {
 	if len(os.Args) <= 1 {
-		log.Println("No arguments have been passed")
+		//log.Println("No arguments have been passed")
 		return
 	}
 
