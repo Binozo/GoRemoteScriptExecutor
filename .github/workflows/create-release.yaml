@@ -1,0 +1,71 @@
+name: Create release
+on: [workflow_dispatch]
+jobs:
+  Create-Release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+      - name: Check if it compiles
+        run: |
+          cd cmd
+          go build -o main
+
+      - name: Build Linux amd64
+        run: |
+          cd cmd
+          env GOOS=linux GOARCH=amd64 go build -o goremotescriptexecutor_amd64
+
+      - name: Build Raspi Linux arm
+        run: |
+          cd cmd
+          env GOOS=linux GOARCH=arm GOARM=5 go build -o goremotescriptexecutor_arm
+
+      - name: Build Linux arm64
+        run: |
+          cd cmd
+          env GOOS=linux GOARCH=arm64 go build -o goremotescriptexecutor_arm64
+          
+      - name: Make release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: true
+          prerelease: false
+          release_name: ${{ steps.version.outputs.version }}
+          tag_name: ${{ github.ref }}
+          body_path: README.md
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Upload amd64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: goremotescriptexecutor_amd64
+          asset_name: goremotescriptexecutor_amd64
+          asset_content_type: application/gzip
+
+      - name: Upload Raspi arm
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: goremotescriptexecutor_arm
+          asset_name: goremotescriptexecutor_arm
+          asset_content_type: application/gzip
+
+      - name: Upload arm64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: goremotescriptexecutor_arm64
+          asset_name: goremotescriptexecutor_arm64
+          asset_content_type: application/gzip
+        
