@@ -27,9 +27,10 @@ jobs:
           cd cmd
           env GOOS=linux GOARCH=arm64 go build -o ../goremotescriptexecutor_arm64
 
-      - name: Echo version name
+      - name: version
         run: |
-          echo "v${{ steps.version.outputs.version }}"
+          cd cmd
+          echo "::set-output name=version::$(go run main.go -v)"
           
       - name: Make release
         uses: actions/create-release@v1
@@ -37,9 +38,12 @@ jobs:
         with:
           draft: false
           prerelease: false
-          release_name: ${{ steps.version.outputs.version }}
+          release_name: "v${{ steps.version.outputs.version }}"
           tag_name: "v${{ steps.version.outputs.version }}"
-          body_path: README.md
+          #body_path: README.md
+          body: |
+            # v${{ steps.version.outputs.version }} Release
+            Executables can be downloaded below. For more information see the [README](https://github.com/Binozo/GoRemoteScriptExecutor#Setup).
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
