@@ -33,7 +33,7 @@ func CheckForUpdate() {
 		log.Printf("New version %s is available...", newTagName)
 		downloadUpdateAndInstall(release)
 	} else {
-		log.Println("No updates available. Current version is" + currentTagName + "and newest version is" + newTagName)
+		log.Println("No updates available. Current version is " + currentTagName + " and newest version is " + newTagName)
 	}
 }
 
