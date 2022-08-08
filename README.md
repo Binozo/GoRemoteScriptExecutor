@@ -61,3 +61,13 @@ Example:
   "status" : "ok"
 }
 ```
+
+### `/update`
+Checks if an update is available and updates automatically.
+Example:
+```json
+{
+  "status" : "ok",
+  "message" : "Update available. Update will be downloaded and installed automatically."
+}
+```
