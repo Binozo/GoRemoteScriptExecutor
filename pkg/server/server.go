@@ -84,7 +84,7 @@ func updateHandler(w http.ResponseWriter, r *http.Request) {
 	if res := checkCredentials(w, r); res == false {
 		return
 	}
-	system.CheckForUpdate()
+	system.AutoUpdate()
 
 	w.WriteHeader(http.StatusOK)
 	json, _ := json.Marshal(map[string]interface{}{

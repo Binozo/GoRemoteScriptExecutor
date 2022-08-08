@@ -4,7 +4,7 @@ const (
 	Port             = 5123
 	Name             = "GoRemoteScriptExecutor"
 	Developer        = "Binozo"
-	Version          = "0.5"
+	Version          = "0.6"
 	AliveArg         = "-testrun"
 	VersionArg       = "-v"
 	SetupPasswordArg = "-set-password"

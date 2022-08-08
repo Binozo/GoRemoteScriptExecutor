@@ -13,5 +13,5 @@ func Setup() {
 }
 
 func CheckForUpdate() {
-	system.CheckForUpdate()
+	system.AutoUpdate()
 }
