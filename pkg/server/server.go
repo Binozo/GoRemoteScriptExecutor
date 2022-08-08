@@ -84,14 +84,22 @@ func updateHandler(w http.ResponseWriter, r *http.Request) {
 	if res := checkCredentials(w, r); res == false {
 		return
 	}
-	system.AutoUpdate()
 
+	newUpdateAvailable := system.CheckForUpdate()
+	message := "No update available"
+	if newUpdateAvailable {
+		message = "Update available. Update will be downloaded and installed automatically."
+	}
 	w.WriteHeader(http.StatusOK)
 	json, _ := json.Marshal(map[string]interface{}{
 		"status":  "ok",
-		"message": "Check for updates has been started",
+		"message": message,
 	})
 	w.Write(json)
+
+	if newUpdateAvailable {
+		go system.AutoUpdate()
+	}
 }
 
 func runScriptHandler(w http.ResponseWriter, r *http.Request) {

@@ -18,6 +18,20 @@ func GetArchitecture() string {
 	return runtime.GOARCH
 }
 
+// CheckForUpdate returns true, if an update is available on the official GitHub Repository
+func CheckForUpdate() bool {
+	log.Println("Checking for updates...")
+	client := github.NewClient(nil)
+	release, _, err := client.Repositories.GetLatestRelease(context.Background(), constants.Developer, constants.Name)
+	if err != nil {
+		log.Printf("Couldn't check for updates: %e. Trying again in one hour.", err)
+	}
+	newTagName := release.GetTagName()
+	currentTagName := "v" + constants.Version
+
+	return newTagName != currentTagName
+}
+
 // AutoUpdate checks if an update for GoRemoteScriptExecutor is available on the official GitHub Repository and installs it
 func AutoUpdate() {
 	log.Println("Checking for updates...")
