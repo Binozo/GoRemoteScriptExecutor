@@ -89,7 +89,7 @@ func updateHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	json, _ := json.Marshal(map[string]interface{}{
 		"status":  "ok",
-		"message": "Update has been checked",
+		"message": "Check for updates has been started",
 	})
 	w.Write(json)
 }
