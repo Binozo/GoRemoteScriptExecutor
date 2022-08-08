@@ -4,6 +4,7 @@ import (
 	"RemoteScriptExecutor/pkg/constants"
 	"RemoteScriptExecutor/pkg/credentialsmanager"
 	"RemoteScriptExecutor/pkg/scriptmanager"
+	"RemoteScriptExecutor/pkg/system"
 	"bytes"
 	"encoding/json"
 	"github.com/gorilla/mux"
@@ -21,6 +22,7 @@ func RegisterRoutes() {
 	r.HandleFunc("/", rootHandler).Methods("GET")
 	r.HandleFunc("/scripts", scriptsHandler).Methods("GET")
 	r.HandleFunc("/runScript/{script}", runScriptHandler).Methods("GET")
+	r.HandleFunc("/update", updateHandler).Methods("GET")
 	http.Handle("/", r)
 }
 
@@ -74,6 +76,20 @@ func scriptsHandler(w http.ResponseWriter, r *http.Request) {
 	json, _ := json.Marshal(map[string]interface{}{
 		"status":  "ok",
 		"scripts": scripts,
+	})
+	w.Write(json)
+}
+
+func updateHandler(w http.ResponseWriter, r *http.Request) {
+	if res := checkCredentials(w, r); res == false {
+		return
+	}
+	system.CheckForUpdate()
+
+	w.WriteHeader(http.StatusOK)
+	json, _ := json.Marshal(map[string]interface{}{
+		"status":  "ok",
+		"message": "Update has been checked",
 	})
 	w.Write(json)
 }
