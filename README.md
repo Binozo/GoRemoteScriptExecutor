@@ -25,6 +25,8 @@ Note: For help look at the [installation script](https://github.com/Binozo/GoRem
 Take a look at [GitHubActionRemoteScriptExecutor](https://github.com/Binozo/GitHubActionRemoteScriptExecutor).
 
 ## HTTP Endpoints
+
+### Note: The HTTP Server runs on port 5123
 Note: you will need to pass the Authorization header with your password.
 ```Authorization: <password>```
 ### `/`
